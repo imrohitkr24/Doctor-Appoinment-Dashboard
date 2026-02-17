@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
-    const [searchParams] = useSearchParams();
-    const role = searchParams.get('role') || 'patient';
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,12 +18,8 @@ const Login = () => {
             const res = await axios.post('http://localhost:5000/auth/login', formData);
             const user = res.data;
 
-            if (user.role !== role) {
-                setError(`Please login with correct role. You are a ${user.role}`);
-                return;
-            }
-
             localStorage.setItem('user', JSON.stringify(user));
+            // Redirect based on role
             if (user.role === 'doctor') {
                 navigate('/doctor-dashboard');
             } else {
@@ -38,7 +32,7 @@ const Login = () => {
 
     return (
         <div className="container center-form">
-            <h2>Login as {role.charAt(0).toUpperCase() + role.slice(1)}</h2>
+            <h2>Login</h2>
             {error && <p className="error">{error}</p>}
             <form onSubmit={handleSubmit} className="form-card">
                 <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
@@ -46,7 +40,7 @@ const Login = () => {
                 <button type="submit" className="btn">Login</button>
             </form>
             <p>
-                Don't have an account? <Link to={`/register?role=${role}`}>Register here</Link>
+                Don't have an account? <Link to="/register">Register here</Link>
             </p>
         </div>
     );

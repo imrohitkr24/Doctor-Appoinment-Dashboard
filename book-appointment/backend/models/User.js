@@ -4,7 +4,7 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['patient', 'doctor'], required: true },
+  role: { type: String, enum: ['patient', 'doctor'] }, // Role determined by logic, not required in body
   specialization: { type: String }, // Only for doctors
 });
 

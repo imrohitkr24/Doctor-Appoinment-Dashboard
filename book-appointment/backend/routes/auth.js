@@ -5,10 +5,16 @@ const User = require('../models/User');
 // Register
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, role, specialization } = req.body;
+        const { name, email, password, specialization } = req.body;
         // Basic validation
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password) {
             return res.status(400).json({ error: 'Please provide all required fields' });
+        }
+
+        // Determine role based on email
+        let role = 'patient';
+        if (email === 'rohit240803@gmail.com') { // Hardcoded admin/doctor email
+            role = 'doctor';
         }
 
         const user = new User({ name, email, password, role, specialization }); // In real app, hash password
