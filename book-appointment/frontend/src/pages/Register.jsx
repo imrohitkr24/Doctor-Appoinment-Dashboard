@@ -26,19 +26,21 @@ const Register = () => {
     };
 
     return (
-        <div className="container center-form">
-            <h2>Register</h2>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit} className="form-card">
-                <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                <input type="text" name="specialization" placeholder="Specialization (Optional - for Doctors)" onChange={handleChange} />
-                <button type="submit" className="btn">Register</button>
-            </form>
-            <p>
-                Already have an account? <Link to="/login">Login here</Link>
-            </p>
+        <div className="center-screen">
+            <div className="card">
+                <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Register</h2>
+                {error && <p className="error">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
+                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                    <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                    <input type="text" name="specialization" placeholder="Specialization (Optional - for Doctors)" onChange={handleChange} />
+                    <button type="submit" className="btn" style={{ width: '100%' }}>Register</button>
+                </form>
+                <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+                    Already have an account? <Link to="/login">Login here</Link>
+                </p>
+            </div>
         </div>
     );
 };

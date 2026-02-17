@@ -10,6 +10,8 @@ const PatientDashboard = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
 
+    const [selectedDepartment, setSelectedDepartment] = useState('');
+
     useEffect(() => {
         if (!user || user.role !== 'patient') {
             navigate('/');
@@ -64,6 +66,13 @@ const PatientDashboard = () => {
         navigate('/');
     };
 
+    // Get unique departments
+    const departments = [...new Set(doctors.map(doc => doc.specialization).filter(Boolean))];
+
+    // Filter doctors by selected department
+    const filteredDoctors = selectedDepartment
+        ? doctors.filter(doc => doc.specialization === selectedDepartment)
+        : [];
 
     return (
         <div className="container">
@@ -75,10 +84,29 @@ const PatientDashboard = () => {
             <div className="booking-section card">
                 <h3>Book an Appointment</h3>
                 <form onSubmit={handleBook} className="booking-form">
-                    <select value={selectedDoctor} onChange={(e) => setSelectedDoctor(e.target.value)} required>
+                    <select
+                        value={selectedDepartment}
+                        onChange={(e) => {
+                            setSelectedDepartment(e.target.value);
+                            setSelectedDoctor(''); // Reset doctor when department changes
+                        }}
+                        required
+                    >
+                        <option value="">Select Department</option>
+                        {departments.map((dept, index) => (
+                            <option key={index} value={dept}>{dept}</option>
+                        ))}
+                    </select>
+
+                    <select
+                        value={selectedDoctor}
+                        onChange={(e) => setSelectedDoctor(e.target.value)}
+                        required
+                        disabled={!selectedDepartment} // Disable if no department selected
+                    >
                         <option value="">Select Doctor</option>
-                        {doctors.map(doc => (
-                            <option key={doc._id} value={doc._id}>Dr. {doc.name} ({doc.specialization})</option>
+                        {filteredDoctors.map(doc => (
+                            <option key={doc._id} value={doc._id}>Dr. {doc.name}</option>
                         ))}
                     </select>
                     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />

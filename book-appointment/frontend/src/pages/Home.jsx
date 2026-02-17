@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div className="container center">
-            <h1>Welcome to Book Appointment</h1>
-            <div className="card">
+        <div className="center-screen">
+            <div className="card center-content">
+                <h1 style={{ marginBottom: '2rem' }}>Welcome to Book Appointment</h1>
                 <div className="btn-group">
                     <Link to="/login" className="btn">Login</Link>
                     <Link to="/register" className="btn-secondary">Register</Link>

@@ -31,17 +31,19 @@ const Login = () => {
     };
 
     return (
-        <div className="container center-form">
-            <h2>Login</h2>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit} className="form-card">
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-                <button type="submit" className="btn">Login</button>
-            </form>
-            <p>
-                Don't have an account? <Link to="/register">Register here</Link>
-            </p>
+        <div className="center-screen">
+            <div className="card">
+                <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Login</h2>
+                {error && <p className="error">{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                    <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+                    <button type="submit" className="btn" style={{ width: '100%' }}>Login</button>
+                </form>
+                <p style={{ textAlign: 'center', marginTop: '1rem' }}>
+                    Don't have an account? <Link to="/register">Register here</Link>
+                </p>
+            </div>
         </div>
     );
 };
