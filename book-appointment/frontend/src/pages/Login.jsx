@@ -35,7 +35,9 @@ const Login = () => {
     return (
         <div className="auth-container">
             <div className="card">
-                <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Login</h2>
+                <div style={{ textAlign: 'center' }}>
+                    <h2 style={{ marginBottom: '1.5rem' }}>Login</h2>
+                </div>
                 {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
