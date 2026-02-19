@@ -26,7 +26,7 @@ const Register = () => {
     };
 
     return (
-        <div className="center-screen">
+        <div className="auth-container">
             <div className="card">
                 <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>Register</h2>
                 {error && <p className="error">{error}</p>}

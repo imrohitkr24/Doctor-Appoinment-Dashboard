@@ -77,7 +77,10 @@ const PatientDashboard = () => {
     return (
         <div className="container">
             <header className="dashboard-header">
-                <h2>Patient Dashboard - {user?.name}</h2>
+                <div>
+                    <h2>Patient Dashboard</h2>
+                    <p className="welcome-text">Welcome back, {user?.name} 👋</p>
+                </div>
                 <button onClick={handleLogout} className="btn-secondary">Logout</button>
             </header>
 
