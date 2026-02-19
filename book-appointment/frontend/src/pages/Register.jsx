@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+import config from '../config';
+
 const Register = () => {
     const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ const Register = () => {
         e.preventDefault();
         try {
             // Logic handles role on backend based on email
-            await axios.post('http://localhost:5000/auth/register', formData);
+            await axios.post(`${config.API_BASE_URL}/auth/register`, formData);
             alert('Registration successful! Please login.');
             navigate('/login');
         } catch (err) {

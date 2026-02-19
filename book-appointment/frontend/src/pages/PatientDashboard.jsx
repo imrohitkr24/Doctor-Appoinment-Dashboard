@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import config from '../config';
+
 const PatientDashboard = () => {
     const [doctors, setDoctors] = useState([]);
     const [appointments, setAppointments] = useState([]);
@@ -24,7 +26,7 @@ const PatientDashboard = () => {
 
     const fetchDoctors = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/doctors');
+            const res = await axios.get(`${config.API_BASE_URL}/doctors`);
             setDoctors(res.data);
         } catch (err) {
             console.error(err);
@@ -33,7 +35,7 @@ const PatientDashboard = () => {
 
     const fetchAppointments = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/appointments/patient/${user._id}`);
+            const res = await axios.get(`${config.API_BASE_URL}/appointments/patient/${user._id}`);
             setAppointments(res.data);
         } catch (err) {
             console.error(err);
@@ -47,7 +49,7 @@ const PatientDashboard = () => {
             return;
         }
         try {
-            await axios.post('http://localhost:5000/appointments', {
+            await axios.post(`${config.API_BASE_URL}/appointments`, {
                 patientId: user._id,
                 doctorId: selectedDoctor,
                 date,
