@@ -31,10 +31,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
-    /* Caduceus Watermark with High Visibility Overlay (low image visibility) */
+    /* Local Logo Watermark with High Visibility Overlay */
     background-image:
         linear-gradient(rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0.92)),
-        url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Caduceus_%28blue%29.svg/1200px-Caduceus_%28blue%29.svg.png');
+        url('/src/assets/logo.jpg');
     background-size: 500px auto;
     background-position: center;
     background-attachment: fixed;

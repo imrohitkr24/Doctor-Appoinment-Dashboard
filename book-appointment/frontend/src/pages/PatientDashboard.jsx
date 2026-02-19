@@ -7,6 +7,7 @@ const PatientDashboard = () => {
     const [appointments, setAppointments] = useState([]);
     const [selectedDoctor, setSelectedDoctor] = useState('');
     const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -41,19 +42,21 @@ const PatientDashboard = () => {
 
     const handleBook = async (e) => {
         e.preventDefault();
-        if (!selectedDoctor || !date) {
-            alert('Please select a doctor and date');
+        if (!selectedDoctor || !date || !time) {
+            alert('Please select a doctor, date, and time');
             return;
         }
         try {
             await axios.post('http://localhost:5000/appointments', {
                 patientId: user._id,
                 doctorId: selectedDoctor,
-                date
+                date,
+                time
             });
             alert('Appointment booked! Waiting for approval.');
             fetchAppointments();
             setDate('');
+            setTime('');
             setSelectedDoctor('');
         } catch (err) {
             console.error(err);
@@ -109,10 +112,11 @@ const PatientDashboard = () => {
                     >
                         <option value="">Select Doctor</option>
                         {filteredDoctors.map(doc => (
-                            <option key={doc._id} value={doc._id}>Dr. {doc.name}</option>
+                            <option key={doc._id} value={doc._id}>{doc.name}</option>
                         ))}
                     </select>
                     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                    <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
                     <button type="submit" className="btn">Book Now</button>
                 </form>
             </div>
@@ -122,8 +126,8 @@ const PatientDashboard = () => {
                 <ul className="appointment-list">
                     {appointments.map(app => (
                         <li key={app._id} className={`appointment-card ${app.status}`}>
-                            <p><strong>Doctor:</strong> Dr. {app.doctorId?.name} ({app.doctorId?.specialization})</p>
-                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()}</p>
+                            <p><strong>Doctor:</strong> {app.doctorId?.name} ({app.doctorId?.specialization})</p>
+                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()} at {app.time}</p>
                             <p><strong>Status:</strong> <span className={`status-badge ${app.status}`}>{app.status}</span></p>
                         </li>
                     ))}

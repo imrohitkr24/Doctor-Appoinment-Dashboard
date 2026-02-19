@@ -41,7 +41,7 @@ const DoctorDashboard = () => {
     return (
         <div className="container">
             <header className="dashboard-header">
-                <h2>Doctor Dashboard - Dr. {user?.name}</h2>
+                <h2>Doctor Dashboard - {user?.name}</h2>
                 <button onClick={handleLogout} className="btn-secondary">Logout</button>
             </header>
 
@@ -51,7 +51,7 @@ const DoctorDashboard = () => {
                     {appointments.filter(a => a.status === 'pending').map(app => (
                         <li key={app._id} className="appointment-card pending">
                             <p><strong>Patient:</strong> {app.patientId?.name}</p>
-                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()}</p>
+                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()} at {app.time}</p>
                             <div className="actions">
                                 <button onClick={() => handleStatus(app._id, 'approved')} className="btn-approve">Approve</button>
                                 <button onClick={() => handleStatus(app._id, 'rejected')} className="btn-reject">Reject</button>
@@ -68,7 +68,7 @@ const DoctorDashboard = () => {
                     {appointments.filter(a => a.status !== 'pending').map(app => (
                         <li key={app._id} className={`appointment-card ${app.status}`}>
                             <p><strong>Patient:</strong> {app.patientId?.name}</p>
-                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()}</p>
+                            <p><strong>Date:</strong> {new Date(app.date).toLocaleDateString()} at {app.time}</p>
                             <p><strong>Status:</strong> <span className={`status-badge ${app.status}`}>{app.status}</span></p>
                         </li>
                     ))}

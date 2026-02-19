@@ -5,8 +5,8 @@ const Appointment = require('../models/Appointment');
 // Book Appointment
 router.post('/', async (req, res) => {
     try {
-        const { patientId, doctorId, date } = req.body;
-        const appointment = new Appointment({ patientId, doctorId, date });
+        const { patientId, doctorId, date, time } = req.body;
+        const appointment = new Appointment({ patientId, doctorId, date, time });
         await appointment.save();
         res.status(201).json(appointment);
     } catch (err) {
